@@ -1,0 +1,157 @@
+{
+  "personal": {
+    "name": "Lam Nguyen",
+    "title": "Full-Stack Developer",
+    "tagline": "I design & develop custom software solutions",
+    "bio": "Passionate software developer with expertise in building modern web applications. I love creating elegant solutions to complex problems and turning ideas into reality.",
+    "avatar": "/avatar.jpg",
+    "email": "lam@example.com",
+    "location": "Ho Chi Minh City, Vietnam",
+    "social": {
+      "github": "https://github.com/lamnt",
+      "linkedin": "https://linkedin.com/in/lamnt",
+      "twitter": "https://twitter.com/lamnt"
+    }
+  },
+  "projects": [
+    {
+      "id": 1,
+      "title": "E-Commerce Platform",
+      "description": "A full-featured e-commerce platform with real-time inventory management, payment processing, and analytics dashboard.",
+      "image": "/projects/ecommerce.jpg",
+      "tags": ["React", "Node.js", "PostgreSQL", "Stripe"],
+      "link": "https://example.com/ecommerce",
+      "github": "https://github.com/lamnt/ecommerce",
+      "featured": true,
+      "year": "2024"
+    },
+    {
+      "id": 2,
+      "title": "AI Content Generator",
+      "description": "An AI-powered content generation tool that helps businesses create marketing copy, blog posts, and social media content.",
+      "image": "/projects/ai-content.jpg",
+      "tags": ["Next.js", "OpenAI", "TailwindCSS", "Prisma"],
+      "link": "https://example.com/ai-content",
+      "github": "https://github.com/lamnt/ai-content",
+      "featured": true,
+      "year": "2024"
+    },
+    {
+      "id": 3,
+      "title": "Task Management App",
+      "description": "A collaborative task management application with real-time updates, team workspaces, and productivity analytics.",
+      "image": "/projects/taskapp.jpg",
+      "tags": ["Vue.js", "Firebase", "Vuetify"],
+      "link": "https://example.com/taskapp",
+      "github": "https://github.com/lamnt/taskapp",
+      "featured": true,
+      "year": "2023"
+    },
+    {
+      "id": 4,
+      "title": "Health & Fitness Tracker",
+      "description": "A mobile-first fitness tracking app with workout plans, nutrition logging, and progress visualization.",
+      "image": "/projects/fitness.jpg",
+      "tags": ["React Native", "GraphQL", "MongoDB"],
+      "link": "https://example.com/fitness",
+      "github": "https://github.com/lamnt/fitness",
+      "featured": false,
+      "year": "2023"
+    }
+  ],
+  "testimonials": [
+    {
+      "id": 1,
+      "name": "Sarah Johnson",
+      "role": "CEO, TechStart Inc.",
+      "avatar": "/testimonials/sarah.jpg",
+      "content": "Lam delivered an exceptional product that exceeded our expectations. His attention to detail and technical expertise made the development process smooth and efficient.",
+      "rating": 5
+    },
+    {
+      "id": 2,
+      "name": "Michael Chen",
+      "role": "Product Manager, InnovateCo",
+      "avatar": "/testimonials/michael.jpg",
+      "content": "Working with Lam was a pleasure. He understood our requirements quickly and provided innovative solutions that helped us launch ahead of schedule.",
+      "rating": 5
+    },
+    {
+      "id": 3,
+      "name": "Emily Davis",
+      "role": "Founder, DesignHub",
+      "avatar": "/testimonials/emily.jpg",
+      "content": "Lam's technical skills combined with his design sensibility resulted in a beautiful and functional application. Highly recommended!",
+      "rating": 5
+    },
+    {
+      "id": 4,
+      "name": "David Park",
+      "role": "CTO, DataFlow Systems",
+      "avatar": "/testimonials/david.jpg",
+      "content": "Exceptional developer with deep knowledge of modern web technologies. Lam consistently delivers high-quality code and great user experiences.",
+      "rating": 5
+    }
+  ],
+  "techStack": [
+    {
+      "category": "Frontend",
+      "description": "Building responsive and interactive user interfaces",
+      "technologies": ["React", "Vue.js", "Next.js", "TailwindCSS", "TypeScript"]
+    },
+    {
+      "category": "Backend",
+      "description": "Scalable server-side applications and APIs",
+      "technologies": ["Node.js", "Python", "Go", "GraphQL", "REST"]
+    },
+    {
+      "category": "Database",
+      "description": "Data storage and management solutions",
+      "technologies": ["PostgreSQL", "MongoDB", "Redis", "Firebase"]
+    },
+    {
+      "category": "DevOps",
+      "description": "Deployment and infrastructure management",
+      "technologies": ["Docker", "AWS", "Vercel", "GitHub Actions"]
+    },
+    {
+      "category": "Mobile",
+      "description": "Cross-platform mobile development",
+      "technologies": ["React Native", "Flutter", "Expo"]
+    },
+    {
+      "category": "Tools",
+      "description": "Development and productivity tools",
+      "technologies": ["Git", "VS Code", "Figma", "Postman"]
+    }
+  ],
+  "experience": [
+    {
+      "id": 1,
+      "company": "TechCorp Inc.",
+      "role": "Senior Full-Stack Developer",
+      "period": "2022 - Present",
+      "description": "Leading development of enterprise web applications using React and Node.js. Mentoring junior developers and implementing best practices."
+    },
+    {
+      "id": 2,
+      "company": "StartupXYZ",
+      "role": "Full-Stack Developer",
+      "period": "2020 - 2022",
+      "description": "Built and maintained multiple web applications. Implemented CI/CD pipelines and improved application performance by 40%."
+    },
+    {
+      "id": 3,
+      "company": "WebAgency Co.",
+      "role": "Frontend Developer",
+      "period": "2018 - 2020",
+      "description": "Developed responsive websites and web applications for various clients. Collaborated with designers to implement pixel-perfect UIs."
+    }
+  ],
+  "stats": {
+    "yearsExperience": 6,
+    "projectsCompleted": 50,
+    "happyClients": 30,
+    "coffeeConsumed": 1000
+  }
+}

@@ -1,0 +1,86 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Windows system & personal files
+AppData/
+Local Settings/
+My Documents/
+NetHood/
+PrintHood/
+Recent/
+SendTo/
+Start Menu/
+Templates/
+Contacts/
+Favorites/
+Links/
+Music/
+Pictures/
+Saved Games/
+Searches/
+Videos/
+NTUSER.DAT*
+ntuser.dat*
+OneDrive/
+Desktop/
+Documents/
+Downloads/
+
+# User profile dotfiles (accidentally committed from parent dir)
+.bash_history
+.bash_profile
+.bashrc
+.gitconfig
+.npmrc
+.ssh/
+.viminfo
+
+# OpenClaw & related workspaces
+.openclaw/
+.specledger/
+.cagent/
+.claude/
+.config/
+.cache/
+.beads/
+.chocolatey/
+.degit/
+.docker/
+.upwork-crawl/
+
+# Other project directories (from parent workspace)
+../chatbot/
+../carta-backend/
+../specledger/
+../ui-chatbot-legal/
+../upwork-crawl-job/
+../zalo-gateway/
+../openclaw-view/
+../portfolio/
+../specledger-cli/
+../extract-excel/
+../go/
+../install.sh
+../bin/
