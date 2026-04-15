@@ -9,7 +9,8 @@ import Step5_Merge from './steps/Step5_Merge'
 import Step6_Review from './steps/Step6_Review'
 import HistoryPage from './pages/HistoryPage'
 import AutoRunPage from './pages/AutoRunPage'
-import { Film, Zap, History } from 'lucide-react'
+import SettingsModal from './components/SettingsModal'
+import { Film, Zap, History, Settings } from 'lucide-react'
 
 const STEP_TITLES = [
   'Fetch Videos',
@@ -69,6 +70,7 @@ function WorkflowApp() {
 
 function AppInner() {
   const [tab, setTab] = useState<Tab>('workflow')
+  const [settingsOpen, setSettingsOpen] = useState(false)
 
   return (
     <div className="flex h-screen bg-[#0c0a14] text-gray-100 overflow-hidden">
@@ -118,9 +120,16 @@ function AppInner() {
         </nav>
 
         {/* Bottom */}
-        <div className="px-4 py-3 border-t border-white/[0.04]">
-          <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" />
+        <div className="px-4 py-3 border-t border-white/[0.04] space-y-2">
+          <button
+            onClick={() => setSettingsOpen(true)}
+            className="w-full flex items-center gap-2 px-2 py-2 rounded-xl text-gray-600 hover:text-gray-300 hover:bg-white/[0.04] transition-all text-left"
+          >
+            <Settings size={14} className="shrink-0" />
+            <span className="text-[11px] font-medium">Settings</span>
+          </button>
+          <div className="flex items-center gap-2 px-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse shrink-0" />
             <p className="text-[11px] text-gray-700">Powered by Grok AI</p>
           </div>
         </div>
@@ -156,6 +165,8 @@ function AppInner() {
           </div>
         )}
       </div>
+
+      {settingsOpen && <SettingsModal onClose={() => setSettingsOpen(false)} />}
     </div>
   )
 }

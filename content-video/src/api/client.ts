@@ -133,4 +133,8 @@ export const api = {
       merged_urls: string[]
     }>
   }>('/sessions'),
+
+  getSettings: () => get<{ browser_api_url: string }>('/settings'),
+  updateSettings: (browser_api_url: string) =>
+    post<{ browser_api_url: string; saved: boolean }>('/settings', { browser_api_url }),
 }
