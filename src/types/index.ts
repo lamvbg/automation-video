@@ -88,8 +88,8 @@ export interface WorkflowState {
   downloadResult: DownloadResult | null
   selectedSegments: Set<string>          // filenames of kept segments
   sessionId: string | null
-  generatedPrompts: string[]
-  selectedPrompt: string | null
+  remadeImages: string[]
+  selectedKolImage: string | null
   generatedVideo: GenerateVideoResult | null
   sessionVideos: SessionVideos | null
   mergeSelection: string[]               // prefixed filenames like 'douyin/file.mp4'

@@ -3,8 +3,8 @@ import { WorkflowProvider, useWorkflow } from './context/WorkflowContext'
 import Stepper from './components/Stepper'
 import Step1_FetchVideos from './steps/Step1_FetchVideos'
 import Step2_Download from './steps/Step2_Download'
-import Step3_Prompts from './steps/Step3_Prompts'
-import Step4_GenerateVideo from './steps/Step4_GenerateVideo'
+import Step3_RemakeImage from './steps/Step3_RemakeImage'
+import Step4_GenerateVideo from './steps/Step3_Prompts'
 import Step5_Merge from './steps/Step5_Merge'
 import Step6_Review from './steps/Step6_Review'
 import HistoryPage from './pages/HistoryPage'
@@ -15,7 +15,7 @@ import { Film, Zap, History, Settings } from 'lucide-react'
 const STEP_TITLES = [
   'Fetch Videos',
   'Download & Segments',
-  'Generate Prompts',
+  'Remake KOL Image',
   'Generate Video',
   'Merge Videos',
   'Review',
@@ -24,7 +24,7 @@ const STEP_TITLES = [
 const STEPS = [
   Step1_FetchVideos,
   Step2_Download,
-  Step3_Prompts,
+  Step3_RemakeImage,
   Step4_GenerateVideo,
   Step5_Merge,
   Step6_Review,

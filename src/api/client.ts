@@ -80,17 +80,26 @@ export const api = {
   deleteVideos: (session_id: string, filenames: string[]) =>
     post('/videos/delete', { session_id, filenames }),
 
-  generatePrompts: (content: string, count = 5, style?: string) =>
-    post<{ prompts: string[] }>('/grok/generate-prompts', { content, count, style }),
+  remakeKolImage: (file: File, sessionId: string) => {
+    const form = new FormData()
+    form.append('file', file)
+    form.append('session_id', sessionId)
+    return request<{ image_urls: string[]; count: number }>('/grok/remake-kol-image', {
+      method: 'POST',
+      body: form,
+      headers: {},  // let browser set Content-Type with boundary
+    })
+  },
 
-  generateVideo: (
-    prompt: string,
+  generateVideoFromTweet: (
+    extra_prompt: string,
     session_id: string | null,
     ratio = '16:9',
     length = 6,
     res = '480p',
     upscale = true,
-  ) => post<GenerateVideoResult>('/grok/generate-video', { prompt, session_id, ratio, length, res, upscale }),
+    kol_image_url?: string | null,
+  ) => post<GenerateVideoResult>('/grok/generate-video-from-tweet', { extra_prompt, session_id, ratio, length, res, upscale, kol_image_url }),
 
   reviewVideo: (
     session_id: string,
@@ -134,7 +143,19 @@ export const api = {
     }>
   }>('/sessions'),
 
-  getSettings: () => get<{ browser_api_url: string }>('/settings'),
-  updateSettings: (browser_api_url: string) =>
-    post<{ browser_api_url: string; saved: boolean }>('/settings', { browser_api_url }),
+  getSettings: () => get<{
+    browser_api_url: string
+    grok_cookies: string
+    grok_user_agent: string
+    douyin_cookies: string
+    x_cookies: string
+  }>('/settings'),
+
+  updateSettings: (data: {
+    browser_api_url?: string
+    grok_cookies?: string
+    grok_user_agent?: string
+    douyin_cookies?: string
+    x_cookies?: string
+  }) => post<{ saved: boolean }>('/settings', data),
 }

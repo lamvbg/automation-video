@@ -4,7 +4,7 @@ import { useWorkflow } from '../context/WorkflowContext'
 const STEPS = [
   { label: 'Fetch' },
   { label: 'Download' },
-  { label: 'Prompts' },
+  { label: 'KOL Image' },
   { label: 'Generate' },
   { label: 'Merge' },
   { label: 'Review' },

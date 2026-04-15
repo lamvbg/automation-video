@@ -87,7 +87,7 @@ export default function Step5_Merge() {
   return (
     <div className="flex gap-6 h-full">
       {/* ── Left: Available Files ── */}
-      <div className="w-80 shrink-0 flex flex-col gap-4">
+      <div className="w-80 shrink-0 flex flex-col gap-4 h-full">
         {/* Session info */}
         {sessionId && (
           <div className="flex items-center gap-2 text-xs text-gray-500">
@@ -167,7 +167,7 @@ export default function Step5_Merge() {
       </div>
 
       {/* ── Right: Merge Order + Result ── */}
-      <div className="flex-1 min-w-0 flex flex-col gap-4 overflow-y-auto">
+      <div className="flex-1 min-w-0 min-h-0 flex flex-col gap-4 overflow-y-auto">
         {/* Merge Order */}
         <div className="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-4">
           <h3 className="text-gray-200 font-semibold text-sm mb-3">
@@ -237,12 +237,12 @@ export default function Step5_Merge() {
               </div>
             </div>
             <div className="p-4 space-y-3">
-              <div className="bg-black rounded-xl overflow-hidden">
+              <div className="bg-black rounded-xl overflow-hidden flex justify-center">
                 <video
                   key={result.filename}
                   src={toMediaUrl(result.download_url)}
                   controls
-                  className="w-full max-h-80"
+                  className="max-h-[60vh] max-w-full w-auto"
                 />
               </div>
               <div className="flex items-center justify-between">

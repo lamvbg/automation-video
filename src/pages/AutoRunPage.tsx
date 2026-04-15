@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import {
   Play, Square, CheckCircle, XCircle, Loader2, Zap,
-  Plus, X, User, Users, Download, Sparkles, Video, ShieldCheck, ChevronRight, Send,
+  Plus, X, User, Users, Download, Video, ShieldCheck, ChevronRight, Send,
   Youtube, ChevronDown, AlertCircle, ToggleLeft, ToggleRight
 } from 'lucide-react'
 import { api, toMediaUrl } from '../api/client'
@@ -11,13 +11,11 @@ import PublishModal from '../components/PublishModal'
 type LogStatus = 'pending' | 'running' | 'done' | 'error' | 'skipped'
 interface LogEntry { step: string; status: LogStatus; detail?: string }
 
-const STYLES = ['', 'cinematic', 'funny', 'dramatic', 'documentary', 'anime', 'minimalist']
 const CRITERIA_DEFAULT = 'Check for inappropriate content and ensure suitability for social media.'
 
 const BASE_SECTIONS = [
   { icon: <User size={13} />, label: 'Fetch' },
   { icon: <Download size={13} />, label: 'Download' },
-  { icon: <Sparkles size={13} />, label: 'Prompts' },
   { icon: <Video size={13} />, label: 'Generate' },
   { icon: <Send size={13} />, label: 'Merge' },
   { icon: <ShieldCheck size={13} />, label: 'Review' },
@@ -31,9 +29,7 @@ export default function AutoRunPage() {
   const [topN, setTopN] = useState(1)
   const [segDuration, setSegDuration] = useState(5)
   const [maxSegments, setMaxSegments] = useState(5)
-  const [promptCount, setPromptCount] = useState(3)
-  const [promptStyle, setPromptStyle] = useState('')
-  const [promptContent, setPromptContent] = useState('')
+  const [extraPrompt, setExtraPrompt] = useState('')
   const [ratio, setRatio] = useState('16:9')
   const [vidLength, setVidLength] = useState(6)
   const [res, setRes] = useState('480p')
@@ -106,19 +102,12 @@ export default function AutoRunPage() {
       log('2. Download & split', 'done', `${segments.length} segments · session ${session_id}`)
       if (abortRef.current) return
 
-      log('3. Generate prompts', 'running')
-      const content = promptContent.trim() || video.desc
-      const { prompts } = await api.generatePrompts(content, promptCount, promptStyle || undefined)
-      const prompt = prompts[0]
-      log('3. Generate prompts', 'done', `"${prompt.slice(0, 80)}…"`)
+      log('3. Generate Grok video', 'running')
+      const grokResult = await api.generateVideoFromTweet(extraPrompt.trim(), session_id, ratio, vidLength, res, true)
+      log('3. Generate Grok video', 'done', grokResult.local_filename)
       if (abortRef.current) return
 
-      log('4. Generate Grok video', 'running')
-      const grokResult = await api.generateVideo(prompt, session_id, ratio, vidLength, res, true)
-      log('4. Generate Grok video', 'done', grokResult.local_filename)
-      if (abortRef.current) return
-
-      log('5. Merge videos', 'running')
+      log('4. Merge videos', 'running')
       const sessionFiles = await api.listSessionVideos(session_id)
       const douyinFiles = sessionFiles.douyin.map(f => `douyin/${f.filename}`)
       const grokFiles = sessionFiles.grok.map(f => `grok/${f.filename}`)
@@ -128,12 +117,12 @@ export default function AutoRunPage() {
       setMergedUrl(mergeResult.download_url)
       setMergedFilename(mergeResult.filename)
       setMergedSessionId(session_id)
-      log('5. Merge videos', 'done', `${mergeResult.duration.toFixed(1)}s · ${mergeResult.size_mb.toFixed(2)} MB`)
+      log('4. Merge videos', 'done', `${mergeResult.duration.toFixed(1)}s · ${mergeResult.size_mb.toFixed(2)} MB`)
       if (abortRef.current) return
 
-      log('6. AI Review', 'running')
+      log('5. AI Review', 'running')
       const review = await api.reviewVideo(session_id, mergeResult.filename, criteria)
-      log('6. AI Review', review.passed ? 'done' : 'error',
+      log('5. AI Review', review.passed ? 'done' : 'error',
         `Score ${review.score}/10 — ${review.feedback.slice(0, 100)}`)
       if (abortRef.current) return
 
@@ -268,32 +257,15 @@ export default function AutoRunPage() {
           </div>
         </div>
 
-        {/* Section: Prompts */}
-        <div className="bg-white/[0.04] border border-white/[0.07] rounded-2xl p-4 space-y-3">
-          <SectionLabel icon={<Sparkles size={13} />} label="Prompts" />
-          <textarea value={promptContent} onChange={e => setPromptContent(e.target.value)} rows={2}
-            placeholder="Leave empty to use video description…"
-            className="w-full bg-[#0c0a14] border border-white/[0.10] rounded-xl px-3 py-2.5 text-gray-200 text-xs focus:outline-none focus:border-violet-500 resize-none placeholder-gray-700" />
-          <div>
-            <div className="flex justify-between mb-1"><label className="text-[11px] text-gray-600">Count</label><span className="text-[11px] text-violet-400 font-bold">{promptCount}</span></div>
-            <input type="range" min={1} max={10} value={promptCount} onChange={e => setPromptCount(+e.target.value)} className="w-full accent-violet-500" />
-          </div>
-          <div>
-            <label className="text-[11px] text-gray-600 block mb-1.5">Style</label>
-            <div className="flex flex-wrap gap-1">
-              {STYLES.map(s => (
-                <button key={s || 'auto'} onClick={() => setPromptStyle(s)}
-                  className={`px-2.5 py-1 rounded-lg text-[11px] border transition-all font-medium ${promptStyle === s ? 'bg-violet-500 border-violet-500 text-white' : 'border-white/[0.10] text-gray-500 hover:border-white/[0.25]'}`}>
-                  {s || 'auto'}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
         {/* Section: Video Generation */}
         <div className="bg-white/[0.04] border border-white/[0.07] rounded-2xl p-4 space-y-3">
           <SectionLabel icon={<Video size={13} />} label="Video Generation" />
+          <div>
+            <label className="text-[11px] text-gray-600 block mb-1.5">Extra Prompt <span className="font-normal">(optional)</span></label>
+            <textarea value={extraPrompt} onChange={e => setExtraPrompt(e.target.value)} rows={2}
+              placeholder="Custom style or instructions…"
+              className="w-full bg-[#0c0a14] border border-white/[0.10] rounded-xl px-3 py-2.5 text-gray-200 text-xs focus:outline-none focus:border-violet-500 resize-none placeholder-gray-700" />
+          </div>
           <div>
             <label className="text-[11px] text-gray-600 block mb-1.5">Aspect Ratio</label>
             <ToggleGroup options={['16:9', '9:16', '1:1']} value={ratio} onChange={setRatio} />

@@ -9,8 +9,8 @@ const INITIAL: WorkflowState = {
   downloadResult: null,
   selectedSegments: new Set(),
   sessionId: null,
-  generatedPrompts: [],
-  selectedPrompt: null,
+  remadeImages: [],
+  selectedKolImage: null,
   generatedVideo: null,
   sessionVideos: null,
   mergeSelection: [],
@@ -30,8 +30,8 @@ interface WorkflowCtx {
   toggleSegment: (filename: string) => void
   removeSegment: (filename: string) => void
   setSessionId: (id: string) => void
-  setGeneratedPrompts: (p: string[]) => void
-  setSelectedPrompt: (p: string) => void
+  setRemadeImages: (urls: string[]) => void
+  setSelectedKolImage: (url: string | null) => void
   setGeneratedVideo: (v: GenerateVideoResult) => void
   setSessionVideos: (v: SessionVideos) => void
   setMergeSelection: (filenames: string[]) => void
@@ -82,8 +82,8 @@ export const WorkflowProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         return { ...s, selectedSegments: nextSelected, downloadResult: nextDownload }
       }),
     setSessionId: (id) => patch({ sessionId: id }),
-    setGeneratedPrompts: (p) => patch({ generatedPrompts: p }),
-    setSelectedPrompt: (p) => patch({ selectedPrompt: p }),
+    setRemadeImages: (urls) => patch({ remadeImages: urls }),
+    setSelectedKolImage: (url) => patch({ selectedKolImage: url }),
     setGeneratedVideo: (v) => patch({ generatedVideo: v }),
     setSessionVideos: (v) => patch({ sessionVideos: v }),
     setMergeSelection: (filenames) => patch({ mergeSelection: filenames }),
