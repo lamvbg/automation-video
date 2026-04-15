@@ -1,0 +1,73 @@
+{
+  "name": "content-video",
+  "productName": "Content Video Studio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "electron:dev": "cross-env NODE_ENV=development concurrently -k \"npm run dev\" \"wait-on http://localhost:3000 && node electron/start.cjs\"",
+    "electron:build": "cross-env NODE_ENV=production npm run build && electron-builder",
+    "electron:pack": "npm run build && electron-builder --dir"
+  },
+  "dependencies": {
+    "lucide-react": "^0.441.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^8.2.2",
+    "cross-env": "^10.1.0",
+    "electron": "^29.4.6",
+    "electron-builder": "^24.13.3",
+    "postcss": "^8.4.45",
+    "tailwindcss": "^3.4.11",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.3",
+    "wait-on": "^7.2.0"
+  },
+  "build": {
+    "appId": "com.contentvideo.app",
+    "productName": "Content Video",
+    "copyright": "Copyright © 2025",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**",
+      "electron/**",
+      "node_modules/**",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "dist-backend/backend.exe",
+        "to": "backend.exe"
+      },
+      {
+        "from": "dist-backend/.env",
+        "to": "app.env"
+      }
+    ],
+    "win": {
+      "signAndEditExecutable": false,
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
