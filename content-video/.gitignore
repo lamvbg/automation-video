@@ -1,0 +1,9 @@
+node_modules/
+dist/
+release/
+dist-backend/backend.exe
+dist-backend/app.db
+dist-backend/downloads/
+dist-backend/.env
+build/
+*.log
